@@ -18,15 +18,15 @@ The shell also supports output redirection using the `>` operator (e.g., `echo h
 ---
 
 ## Project Structure
-   ```bash
-   src/
-   ├── main.rs # Entry point for the shell
-   ├── shell/
-   │ ├── mod.rs # CommandType enum and command parsing logic
-   │ ├── builtins.rs # Implementation of built-in commands
-   │ ├── external.rs # Handling of external commands
-   │ └── std_out.rs # Output redirection (>)
-
+```bash
+src/
+├── main.rs # Entry point for the shell
+├── shell/
+│ ├── mod.rs # CommandType enum and command parsing logic
+│ ├── builtins.rs # Implementation of built-in commands
+│ ├── external.rs # Handling of external commands
+│ └── std_out.rs # Output redirection (>)
+```
 ---
 
 ## Usage
@@ -36,7 +36,7 @@ The shell also supports output redirection using the `>` operator (e.g., `echo h
    git clone https://github.com/ken-kaneki-9/sarvil_shell.git
    cd sarvil_shell
    cargo run
- 
+ ```
 ## Example Commands
 ```bash
 echo Hello World
@@ -44,7 +44,7 @@ pwd
 type echo
 echo Hello > output.txt
 exit 0
-
+```
 ---
 ## To Do List
 
@@ -55,7 +55,8 @@ exit 0
 - [ ] Task 5:Add support for running background jobs
 
 ---
-##Contribution 
+
+## Contribution 
 
 Contributions are welcome.
 To contribute:
