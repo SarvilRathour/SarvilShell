@@ -4,6 +4,8 @@ use std::fs;
 use std::io::ErrorKind;
 use std::path::Path;
 use std::process;
+// let mut default_print:bool=true;
+#[derive(Debug)]
 pub enum BuiltInCommand {
     Exit(i32),
     Echo(String),
@@ -13,21 +15,25 @@ pub enum BuiltInCommand {
     Cd(String),
     Cat(Vec<String>),
 }
-pub fn handle_builtins(cmd: BuiltInCommand) -> Result<(), String> {
+pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String> {
     match cmd {
         BuiltInCommand::Exit(code) => process::exit(code),
         BuiltInCommand::Echo(msg) => {
+        // let output=msg;
+        if print{
             println!("{}", msg);
-            Ok(())
+        
+        }
+            Ok(msg)
         }
         BuiltInCommand::Type(cmd) => {
             let builtins = vec!["type", "echo", "exit", "cd", "pwd"];
             if builtins.contains(&cmd.as_str()) {
                 println!("{} is a shell builtin", cmd);
-                Ok(())
+                Ok("Success".to_string())
             } else if let Some(path) = find_path(&cmd) {
                 println!("{}", path);
-                Ok(())
+                Ok("Success".to_string())
             } else {
                 Err(format!("{}:not found", cmd))
             }
@@ -35,13 +41,13 @@ pub fn handle_builtins(cmd: BuiltInCommand) -> Result<(), String> {
         BuiltInCommand::Pwd => {
             let current_path = env::current_dir().unwrap();
             println!("{}", current_path.display());
-            Ok(())
+            Ok(current_path.display().to_string())
         }
         BuiltInCommand::Cd(destination) => {
             if destination == String::from("~") {
                 let home_path = Path::new(r"C:\Users\lenovo");
                 env::set_current_dir(home_path);
-                return Ok(());
+                return Ok(destination);
             }
             let dest_path = Path::new(&destination);
             if dest_path.exists() {
@@ -51,7 +57,7 @@ pub fn handle_builtins(cmd: BuiltInCommand) -> Result<(), String> {
                         eprintln!("Failed to change the directory:{}", e);
                     }
                 }
-                Ok(())
+                Ok(destination)
             } else {
                 Err(format!("cd: {:?}: No such file or directory", dest_path))
             }
@@ -61,19 +67,22 @@ pub fn handle_builtins(cmd: BuiltInCommand) -> Result<(), String> {
             if let Ok(enteries)=fs::read_dir(current_path.as_path()){
                 for entry in enteries{
                     if let Ok(entry)=entry{
-                        println!("{}",entry.file_name().to_string_lossy());
+                    if print{println!("{}",entry.file_name().to_string_lossy());}
                     }
                 } 
             }else{
                 eprintln!("Failed to list the current directories");
             }
-            Ok(())
+            Ok(current_path.display().to_string())
         }
         BuiltInCommand::Cat(displays) => {
+        let mut combined=String::new();
             for display in displays {
                 match fs::read_to_string(display) {
                     Ok(contents) => {
-                        println!("{}", contents);
+                        combined.push_str(&contents);
+                        combined.push('\n');
+                        // return Ok(contents);
                     }
                     Err(e) => match e.kind() {
                         ErrorKind::NotFound => {
@@ -83,7 +92,11 @@ pub fn handle_builtins(cmd: BuiltInCommand) -> Result<(), String> {
                     },
                 }
             }
-            Ok(())
+            if print{
+                print!("{}",combined);
+            }
+            Ok(combined)
+            // Ok(())
         }
     }
 }

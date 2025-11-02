@@ -1,17 +1,32 @@
 mod builtins;
 mod external;
+mod std_out;
 use builtins::BuiltInCommand;
 use external::ExternalCommand;
 use builtins::handle_builtins;
 use external::run_external;
+use std_out::StdOutCommand;
+use std_out::moving;
 pub enum CommandType{
   BuiltIn(BuiltInCommand),
   External(ExternalCommand),
+  Redirect(StdOutCommand),
 }
 pub fn parse(input:&str)->Option<CommandType>{
     let mut inputs:Vec<&str>=input.split(" ").collect();
     if inputs.is_empty(){
       return None;
+    }
+        if input.contains('>') {
+        let parts: Vec<&str> = input.split('>').collect();
+        if parts.len() == 2 {
+            let left_side = parts[0].trim().to_string();
+            let destination = parts[1].trim().to_string();
+            return Some(CommandType::Redirect(StdOutCommand {
+                left_side,
+                destination,
+            }));
+        }
     }
     match inputs[0]{
         "exit"=>{
@@ -45,10 +60,11 @@ pub fn parse(input:&str)->Option<CommandType>{
         }
     }
 }
-pub fn execute(cmd:CommandType)->Result<(),String>{
+pub fn execute(cmd:CommandType)->Result<String,String>{
   match cmd{
-    CommandType::BuiltIn(built)=>handle_builtins(built),
+    CommandType::BuiltIn(built)=>handle_builtins(built,true),
     CommandType::External(ext)=>run_external(ext),
+    CommandType::Redirect(out)=>moving(out),
   }
 }
 

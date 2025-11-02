@@ -18,7 +18,7 @@ pub fn find_path(cmd:&String)->Option<String>{
     None
 }
 
-pub fn run_external(cmd:ExternalCommand)->Result<(),String>{
+pub fn run_external(cmd:ExternalCommand)->Result<String,String>{
         if let Some(path)=find_path(&cmd.program){
                 let status=Command::new(path)
                            .args(cmd.args)
@@ -27,7 +27,7 @@ pub fn run_external(cmd:ExternalCommand)->Result<(),String>{
                  if !status.success(){
                        return Err(format!("{} exited with status {}", cmd.program, status));
                  }
-                 Ok(())
+                 Ok("Success".to_string())
         }else{
           Err(format!("{}: not found", cmd.program))
         }
