@@ -13,20 +13,19 @@ The shell also supports output redirection using the `>` operator (e.g., `echo h
 - Redirection support (`>`)
 - Clear modular design (`builtins`, `external`, `std_out` modules)
 - Easily extendable architecture for future commands
+- Also supports External Commands
 
 ---
 
 ## Project Structure
-
-src/
-├── main.rs # Entry point for the shell
-├── shell/
-│ ├── mod.rs # CommandType enum and command parsing logic
-│ ├── builtins.rs # Implementation of built-in commands
-│ ├── external.rs # Handling of external commands
-│ └── std_out.rs # Output redirection (>)
-
-
+   ```bash
+   src/
+   ├── main.rs # Entry point for the shell
+   ├── shell/
+   │ ├── mod.rs # CommandType enum and command parsing logic
+   │ ├── builtins.rs # Implementation of built-in commands
+   │ ├── external.rs # Handling of external commands
+   │ └── std_out.rs # Output redirection (>)
 
 ---
 
@@ -39,21 +38,23 @@ src/
    cargo run
  
 ## Example Commands
+```bash
 echo Hello World
 pwd
 type echo
 echo Hello > output.txt
 exit 0
 
+---
+## To Do List
 
-## To-Do
+- [ ] Task 1:Add support for input redirection (<)[I am working on this]
+- [ ] Task 2:Add piping (|) between commands
+- [ ] Task 3:Implement history and autocomplete
+- [ ] Task 4:Improve error handling and logging
+- [ ] Task 5:Add support for running background jobs
 
->Add support for input redirection (<)[I am working on this]
->Add piping (|) between commands
-> Implement history and autocomplete
-> Improve error handling and logging
-> Add support for running background jobs
-
+---
 ##Contribution 
 
 Contributions are welcome.
@@ -62,19 +63,19 @@ To contribute:
 Fork the repository
 
 Create a new branch for your feature or bugfix:
-
-git checkout -b feature-name
+   ```bash
+    git checkout -b feature-name
 
 
 Make your changes and test them
 
 Commit your changes with a clear message:
-
+```bash
 git commit -m "Add description of change"
 
 
 Push your branch and create a pull request:
-
+```bash
 git push origin feature-name
 
 
