@@ -6,6 +6,7 @@ pub enum StdOutType{
   Builtin(BuiltInCommand),
   // External(String),
 }
+
 #[derive(Debug)]
 pub struct StdOutCommand{
   pub command:StdOutType,

@@ -73,6 +73,9 @@ pub fn parse(input: &str) -> Option<CommandType> {
             inputs[1..].iter().map(|s| s.to_string()).collect(),
         ))),
         "ls" => Some(CommandType::BuiltIn(BuiltInCommand::Ls)),
+        "touch"=>Some(CommandType::BuiltIn(BuiltInCommand::Touch(
+            inputs[1].to_string()
+        ))),
         ext => Some(CommandType::External(ExternalCommand {
             program: ext.to_string(),
             args: inputs[1..].iter().map(|s| s.to_string()).collect(),

@@ -14,6 +14,7 @@ pub enum BuiltInCommand {
     Ls,
     Cd(String),
     Cat(Vec<String>),
+    Touch(String),
 }
 pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String> {
     match cmd {
@@ -74,6 +75,14 @@ pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String>
                 eprintln!("Failed to list the current directories");
             }
             Ok(current_path.display().to_string())
+        }
+        BuiltInCommand::Touch(for_creation)=>{
+            let created=fs::File::create(for_creation).unwrap();
+            // match created{
+            //     Ok(a)=>Ok("success".to_string()),
+            //     Err(e)=>eprintln!("Error: {}",e),
+            // }
+            Ok("success".to_string())
         }
         BuiltInCommand::Cat(displays) => {
         let mut combined=String::new();
