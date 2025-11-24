@@ -29,7 +29,7 @@ pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String>
             Ok(msg)
         }
         BuiltInCommand::Type(cmd) => {
-            let builtins = vec!["type", "echo", "exit", "cd", "pwd"];
+            let builtins = vec!["type", "echo", "exit", "cd", "pwd", "clear"];
             if builtins.contains(&cmd.as_str()) {
                 println!("{} is a shell builtin", cmd);
                 Ok("Success".to_string())
@@ -109,7 +109,8 @@ pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String>
             // Ok(())
         }
         BuiltInCommand::Clear => {
-            print!("\x1B[2J\x1B[1;1H");
+            print!("\x1B[2J\x1B[1;1H");            
+            std::io::Write::flush(&mut std::io::stdout()).unwrap();
             Ok("Success".to_string())
         }
     }
