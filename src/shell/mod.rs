@@ -76,6 +76,7 @@ pub fn parse(input: &str) -> Option<CommandType> {
         "touch"=>Some(CommandType::BuiltIn(BuiltInCommand::Touch(
             inputs[1].to_string()
         ))),
+        "clear" => Some(CommandType::BuiltIn(BuiltInCommand::Clear)),
         ext => Some(CommandType::External(ExternalCommand {
             program: ext.to_string(),
             args: inputs[1..].iter().map(|s| s.to_string()).collect(),

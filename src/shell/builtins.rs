@@ -15,6 +15,7 @@ pub enum BuiltInCommand {
     Cd(String),
     Cat(Vec<String>),
     Touch(String),
+    Clear,
 }
 pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String> {
     match cmd {
@@ -106,6 +107,10 @@ pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String>
             }
             Ok(combined)
             // Ok(())
+        }
+        BuiltInCommand::Clear => {
+            print!("\x1B[2J\x1B[1;1H");
+            Ok("Success".to_string())
         }
     }
 }
