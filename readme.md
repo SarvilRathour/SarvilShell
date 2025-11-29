@@ -1,7 +1,7 @@
 # Sarvil Shell
 
 Sarvil Shell is a simple command-line shell written in Rust.  
-It supports basic built-in commands like `echo`, `cd`, `pwd`, `cat`, `ls`, `type`, and `exit`.  
+It supports basic built-in commands like `echo`, `cd`, `pwd`, `cat`, `ls`, `type`,`exit` and `clear`.  
 The shell also supports output redirection using the `>` operator (e.g., `echo hello > file.txt`).
 
 ---
@@ -48,7 +48,7 @@ exit 0
 ---
 ## To Do List
 
-- [ ] Task 1:Add support for input redirection (<)[I am working on this]
+- [X] Task 1:Add support for input redirection (<)
 - [ ] Task 2:Add piping (|) between commands
 - [ ] Task 3:Implement history and autocomplete
 - [ ] Task 4:Improve error handling and logging

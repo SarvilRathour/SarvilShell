@@ -4,7 +4,7 @@ mod shell;
 use crate::shell::CommandType;
 
 fn main() {
-    println!("----Welcome to Sarvil Shell----");
+    println!("----Welcome to Sarvil Shell---");
     
     let mut rl = DefaultEditor::new().unwrap();
     

@@ -29,7 +29,7 @@ pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String>
             Ok(msg)
         }
         BuiltInCommand::Type(cmd) => {
-            let builtins = vec!["type", "echo", "exit", "cd", "pwd", "clear"];
+            let builtins = vec!["type", "echo", "exit", "cd", "pwd", "clear","history"];
             if builtins.contains(&cmd.as_str()) {
                 println!("{} is a shell builtin", cmd);
                 Ok("Success".to_string())
