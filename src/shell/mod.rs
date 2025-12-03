@@ -1,6 +1,8 @@
 mod builtins;
 mod external;
 mod std_out;
+use std::fs;
+use std::collections::HashMap;
 use builtins::handle_builtins;
 use builtins::BuiltInCommand;
 use external::run_external;
@@ -42,6 +44,7 @@ pub fn parse(input: &str) -> Option<CommandType> {
                 destination:right,
             }));
         }
+        //behanchod ya nhi chalega
         // else{
         //   // let ext=ExternalCommand{
         //   //   program:cmd.to_string(),
@@ -53,6 +56,7 @@ pub fn parse(input: &str) -> Option<CommandType> {
         //   }));
         // }
     }
+    
     match inputs[0] {
         "exit" => {
             let code = inputs[1].parse().unwrap_or(0);

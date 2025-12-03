@@ -15,6 +15,7 @@ pub enum BuiltInCommand {
     Cd(String),
     Cat(Vec<String>),
     Touch(String),
+    // History,
     Clear,
 }
 pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String> {
@@ -108,6 +109,9 @@ pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String>
             Ok(combined)
             // Ok(())
         }
+        // BuiltinCommand::History=>{
+            
+        // }
         BuiltInCommand::Clear => {
             print!("\x1B[2J\x1B[1;1H");            
             std::io::Write::flush(&mut std::io::stdout()).unwrap();
