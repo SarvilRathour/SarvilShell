@@ -10,12 +10,13 @@ use external::ExternalCommand;
 use std_out::moving;
 use std_out::StdOutCommand;
 use std_out::StdOutType;
+use crate::History;
 pub enum CommandType {
     BuiltIn(BuiltInCommand),
     External(ExternalCommand),
     Redirect(StdOutCommand),
 }
-pub fn parse(input: &str) -> Option<CommandType> {
+pub fn parse(input: &str,history:&History) -> Option<CommandType> {
     let inputs: Vec<&str> = input.split(" ").collect();
     if inputs.is_empty() {
         return None;
@@ -44,7 +45,6 @@ pub fn parse(input: &str) -> Option<CommandType> {
                 destination:right,
             }));
         }
-        //behanchod ya nhi chalega
         // else{
         //   // let ext=ExternalCommand{
         //   //   program:cmd.to_string(),
@@ -81,6 +81,7 @@ pub fn parse(input: &str) -> Option<CommandType> {
             inputs[1].to_string()
         ))),
         "clear" => Some(CommandType::BuiltIn(BuiltInCommand::Clear)),
+        "history"=>Some(CommandType::BuiltIn(BuiltInCommand::History(history.entries.clone()))),
         ext => Some(CommandType::External(ExternalCommand {
             program: ext.to_string(),
             args: inputs[1..].iter().map(|s| s.to_string()).collect(),

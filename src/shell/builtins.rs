@@ -4,6 +4,7 @@ use std::fs;
 use std::io::ErrorKind;
 use std::path::Path;
 use std::process;
+use crate::History;
 // let mut default_print:bool=true;
 #[derive(Debug)]
 pub enum BuiltInCommand {
@@ -15,7 +16,7 @@ pub enum BuiltInCommand {
     Cd(String),
     Cat(Vec<String>),
     Touch(String),
-    // History,
+    History(Vec<String>),
     Clear,
 }
 pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String> {
@@ -109,13 +110,17 @@ pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String>
             Ok(combined)
             // Ok(())
         }
-        // BuiltinCommand::History=>{
-            
-        // }
+        BuiltInCommand::History(histories)=>{
+                for history in histories{
+                    println!("{:?}",history);
+                }
+                Ok(String::from("success"))
+        }
         BuiltInCommand::Clear => {
             print!("\x1B[2J\x1B[1;1H");            
             std::io::Write::flush(&mut std::io::stdout()).unwrap();
             Ok("Success".to_string())
         }
+        
     }
 }

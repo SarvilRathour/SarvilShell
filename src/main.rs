@@ -7,7 +7,9 @@ pub struct History{
 }
 impl History{
     pub fn new()->Self{
-        Self{entries:Vec::new()}
+            Self{
+                entries:vec![],
+            }
     }
     pub fn add(&mut self,entry:&str){
         self.entries.push(entry.to_string())
@@ -30,7 +32,7 @@ fn main() {
                     continue;
                 }
                 history.add(pure_input);
-                if let Some(par) = shell::parse(pure_input) {
+                if let Some(par) = shell::parse(pure_input,&history) {
                     if let Err(err) = shell::execute(par) {
                         eprintln!("{}", err);
                     }
