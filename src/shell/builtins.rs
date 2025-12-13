@@ -112,7 +112,8 @@ pub fn handle_builtins(cmd: BuiltInCommand,print:bool) -> Result<String, String>
         }
         BuiltInCommand::History(histories)=>{
                 for history in histories{
-                    println!("{:?}",history);
+                    let cleaned = history.replace('"', "");
+                    println!("{}",cleaned);
                 }
                 Ok(String::from("success"))
         }

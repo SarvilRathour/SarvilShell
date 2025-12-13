@@ -31,6 +31,7 @@ fn main() {
                 if pure_input.is_empty() {
                     continue;
                 }
+                rl.add_history_entry(pure_input).ok();
                 history.add(pure_input);
                 if let Some(par) = shell::parse(pure_input,&history) {
                     if let Err(err) = shell::execute(par) {
